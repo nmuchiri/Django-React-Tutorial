@@ -12,13 +12,13 @@ function ProtectedRoute({children}){
     } , [])
 
     const refreshToken = async () =>{
-        const refreshToken = localstorage.getItem(REFRESH_TOKEN)
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN)
         try {
              const res = await api.post("/api/token/refresh/", {
                 refresh: refreshToken,
             });
             if(res.status === 200){
-                localstorage.setItem(ACCESS_TOKEN, res.data.access)
+                localStorage.setItem(ACCESS_TOKEN, res.data.access)
                 setIsAuthorized(true)
             }else {
                 setIsAuthorized(false)
@@ -30,7 +30,7 @@ function ProtectedRoute({children}){
 
     }
     const auth = async () =>{
-        const token = localstorage.getItem(ACCESS_TOKEN)
+        const token = localStorage.getItem(ACCESS_TOKEN)
         if (! token){
             setIsAuthorized(false)
             return

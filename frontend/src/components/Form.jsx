@@ -19,9 +19,14 @@ import "../styles/Form.css"
         try{
             const res = await api.post(route, { username, password})
             if (method === "login") {
+                console.log("Attempting to set tokens and navigate...");
+                console.log("Access Token:", res.data.access);
+                console.log("Refresh Token:", res.data.refresh);
                 localStorage.setItem(ACCESS_TOKEN, res.data.access)
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh)
+                console.log("Tokens set. Attempting to navigate...");
                 navigate("/")
+                console.log("Navigation call completed.");
             } else{
                 navigate("/login")
             }
